@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 
 const Form = () => {
@@ -13,16 +14,16 @@ const Form = () => {
       <nav className="flex items-center justify-between p-[30px]">
         <Navbar />
         <div className="flex items-center gap-3">
-          <a href="signin.html">
+          <Link to="/manager/sign-in">
             <div className="flex items-center gap-3 w-fit rounded-full border p-[14px_20px] transition-all duration-300 hover:bg-[#662FFF] hover:border-[#8661EE] hover:shadow-[-10px_-6px_10px_0_#7F33FF_inset] bg-[#070B24] border-[#24283E] shadow-[-10px_-6px_10px_0_#181A35_inset]">
               <span className="font-semibold text-white">My Dashboard</span>
             </div>
-          </a>
-          <a href="signup.html">
+          </Link>
+          <Link to="#">
             <div className="flex items-center gap-3 w-fit rounded-full border p-[14px_20px] transition-all duration-300 hover:bg-[#662FFF] hover:border-[#8661EE] hover:shadow-[-10px_-6px_10px_0_#7F33FF_inset] bg-[#662FFF] border-[#8661EE] shadow-[-10px_-6px_10px_0_#7F33FF_inset]">
               <span className="font-semibold text-white">Sign Up</span>
             </div>
-          </a>
+          </Link>
         </div>
       </nav>
       <div className="flex items-center justify-center gap-[109px] my-auto">
