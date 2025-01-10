@@ -1,7 +1,7 @@
 import { ManagerHome } from "../pages/ManagerHome";
 import { createBrowserRouter } from "react-router-dom";
-import { SignIn } from "../pages/SignIn";
-import { SignUp } from "../pages/SignUp";
+import { SignInPage } from "../pages/SignIn";
+import { SignUpPage } from "../pages/SignUp";
 
 export const router = createBrowserRouter([
   {
@@ -10,10 +10,10 @@ export const router = createBrowserRouter([
   },
   {
     path: "/manager/sign-in",
-    element: <SignIn />,
+    element: <SignInPage />,
   },
   {
     path: "/manager/sign-up",
-    element: <SignUp />,
+    element: <SignUpPage />,
   },
 ]);

@@ -1,3 +1,5 @@
-export const SignUp = () => {
-  return <div>SignUp</div>;
+import Form from "./form";
+
+export const SignUpPage = () => {
+  return <Form />;
 };
