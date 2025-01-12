@@ -27,9 +27,14 @@ export const SuccessCheckoutPage = () => {
         </div>
       </nav>
       <h1 className="font-extrabold text-[46px] leading-[69px] text-white text-center m-auto">
-        Open Midtrans <br />
-        Payment gateway
+        Success Checkout <br />
+        Please login to continue
       </h1>
+      <Link to="/manager/sign-in">
+        <div className="flex items-center justify-center gap-3 w-max mx-auto mt-5 rounded-full border p-[20px_50px] transition-all duration-300 hover:bg-[#662FFF] hover:border-[#8661EE] hover:shadow-[-10px_-6px_10px_0_#7F33FF_inset] bg-[#662FFF] border-[#8661EE] shadow-[-10px_-6px_10px_0_#7F33FF_inset]">
+          <span className="font-semibold text-white">Sign in Now</span>
+        </div>
+      </Link>
     </div>
   );
 };
