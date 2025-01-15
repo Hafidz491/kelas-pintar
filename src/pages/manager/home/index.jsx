@@ -1,7 +1,7 @@
 import Courses from "./courses";
 import Students from "./students";
 
-export const ManagerHome = () => (
+export const ManagerHomePage = () => (
   <>
     <header className="flex items-center justify-between gap-[30px]">
       <div>
