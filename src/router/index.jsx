@@ -6,7 +6,7 @@ import { SuccessCheckoutPage } from "../pages/SuccessCheckout";
 import Layout from "../components/Layout";
 import ManageCoursePage from "../pages/manager/courses";
 import ManageCreateCoursePage from "../pages/manager/create-course";
-import ManageCourseDetailPage from "../pages/course-detail";
+import ManageCourseDetailPage from "../pages/manager/course-detail";
 
 export const router = createBrowserRouter([
   {
