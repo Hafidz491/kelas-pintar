@@ -1,5 +1,6 @@
 import React from "react";
 import ContentItem from "./table-item";
+import { Link } from "react-router-dom";
 
 export default function TableContent() {
   return (
@@ -12,12 +13,12 @@ export default function TableContent() {
           <h2 className="font-bold text-[22px] leading-[33px]">
             Course Content
           </h2>
-          <a
-            href="add-course-content.html"
+          <Link
+            to="/manager/courses/1/create"
             className="w-fit rounded-full p-[14px_20px] font-semibold text-[#FFFFFF] bg-[#662FFF] text-nowrap"
           >
             Add Content
-          </a>
+          </Link>
         </div>
         <ContentItem />
         <ContentItem />
