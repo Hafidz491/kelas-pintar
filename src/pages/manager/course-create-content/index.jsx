@@ -130,6 +130,7 @@ export default function ManageContentCreatePage() {
           <label className="font-semibold">Content Text</label>
           {/* <div id="editor"></div> */}
           <CKEditor
+            id="editor"
             editor={ClassicEditor}
             config={{
               toolbar: [
