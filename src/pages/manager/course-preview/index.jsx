@@ -246,7 +246,10 @@ export default function ManageCoursePreviewPage() {
             </div>
           </div>
         </div>
-        <div className="relative flex flex-col gap-[26px]"></div>
+        <div className="relative flex flex-col gap-[26px]">
+          <ContentText />
+          <ContentVideo />
+        </div>
       </main>
     </div>
   );
