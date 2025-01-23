@@ -4,11 +4,12 @@ import Header from "./Header";
 import { Outlet, useMatch } from "react-router-dom";
 
 export default function Layout({ isAdmin = true }) {
-  const isPreview = useMatch("/manager/courses/:id/preview");
+  const isManagerPreview = useMatch("/manager/courses/:id/preview");
+  const isStudentPreview = useMatch("/student/detail/:id");
 
   return (
     <>
-      {isPreview !== null ? (
+      {isManagerPreview !== null || isStudentPreview !== null ? (
         <Outlet />
       ) : (
         <div className="flex min-h-screen">
