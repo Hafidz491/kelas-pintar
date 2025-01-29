@@ -1,7 +1,6 @@
 import { ManagerHomePage } from "../pages/manager/home";
 import { createBrowserRouter } from "react-router-dom";
 import { SignInPage } from "../pages/SignIn";
-import { SignUpPage } from "../pages/SignUp";
 import { SuccessCheckoutPage } from "../pages/SuccessCheckout";
 import Layout from "../components/Layout";
 import ManageCoursePage from "../pages/manager/courses";
@@ -11,6 +10,7 @@ import ManageContentCreatePage from "../pages/manager/course-create-content";
 import ManageCoursePreviewPage from "../pages/manager/course-preview";
 import ManageStudetnsPage from "../pages/manager/students";
 import StudentPage from "../pages/student/student-overview";
+import { SignUpPage } from "../pages/SignUp";
 
 export const router = createBrowserRouter([
   {
@@ -18,11 +18,11 @@ export const router = createBrowserRouter([
     element: <ManagerHomePage />,
   },
   {
-    path: "/manager/sign-in",
+    path: "/manage/sign-in",
     element: <SignInPage />,
   },
   {
-    path: "/manager/sign-up",
+    path: "/manage/sign-up",
     element: <SignUpPage />,
   },
   {
