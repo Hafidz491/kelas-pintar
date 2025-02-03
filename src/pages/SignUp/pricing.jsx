@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import { useMutation } from "@tanstack/react-query";
 import { postSignUp } from "../../service/authService";
+import PropTypes from "prop-types";
 
-const Pricing = ({ data }) => {
+export default function Pricing({ data }) {
+  console.log(data);
+
   const { isLoading, mutateAsync } = useMutation({
     mutationFn: () => postSignUp(data),
   });
@@ -16,6 +19,7 @@ const Pricing = ({ data }) => {
 
       const response = await mutateAsync();
 
+      console.log(response);
       window.location.replace(response.data.midtrans_payment_url);
     } catch (error) {
       console.log(error);
@@ -193,6 +197,8 @@ const Pricing = ({ data }) => {
       </div>
     </div>
   );
-};
+}
 
-export default Pricing;
+Pricing.propTypes = {
+  data: PropTypes.object,
+};
