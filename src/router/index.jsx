@@ -10,7 +10,7 @@ import ManageContentCreatePage from "../pages/manager/course-create-content";
 import ManageCoursePreviewPage from "../pages/manager/course-preview";
 import ManageStudetnsPage from "../pages/manager/students";
 import StudentPage from "../pages/student/student-overview";
-import { SignUpPage } from "../pages/SignUp";
+import SignUpPage from "../pages/SignUp";
 
 export const router = createBrowserRouter([
   {
