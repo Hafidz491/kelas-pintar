@@ -6,7 +6,7 @@ import { signUpSchema } from "../../utils/zodSchema";
 import { useState } from "react";
 import Pricing from "./pricing";
 
-export const SignUpPage = () => {
+export default function SignUpPage() {
   const [dataSignUp, setDataSignUp] = useState(null);
   const [mode, setMode] = useState("AUTH");
 
@@ -147,4 +147,4 @@ export const SignUpPage = () => {
       )}
     </>
   );
-};
+}
