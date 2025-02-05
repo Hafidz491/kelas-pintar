@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInSchema } from "../../utils/zodSchema";
 import { useMutation } from "@tanstack/react-query";
 import { postSignIn } from "../../service/authService";
+import secureLocalStorage from "react-secure-storage";
+import { STORAGE_KEY } from "../../utils/const";
 
 export const SignInPage = () => {
   const {
@@ -19,11 +21,19 @@ export const SignInPage = () => {
     mutationFn: (data) => postSignIn(data),
   });
 
+  const navigate = useNavigate();
+
   const onSubmit = async (data) => {
     try {
       const response = await mutateAsync(data);
 
-      console.log(response);
+      secureLocalStorage.setItem(STORAGE_KEY, response.data);
+
+      if (response.data.role === "manager") {
+        navigate("/manager");
+      } else {
+        navigate("student");
+      }
     } catch (error) {
       console.log(error);
     }
