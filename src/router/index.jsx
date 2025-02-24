@@ -1,5 +1,5 @@
 import { ManagerHomePage } from "../pages/manager/home";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, redirect } from "react-router-dom";
 import { SignInPage } from "../pages/SignIn";
 import { SuccessCheckoutPage } from "../pages/SuccessCheckout";
 import Layout from "../components/Layout";
@@ -11,6 +11,8 @@ import ManageCoursePreviewPage from "../pages/manager/course-preview";
 import ManageStudetnsPage from "../pages/manager/students";
 import StudentPage from "../pages/student/student-overview";
 import SignUpPage from "../pages/SignUp";
+import { MANAGER_SESSION, STORAGE_KEY } from "../utils/const";
+import secureLocalStorage from "react-secure-storage";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +33,16 @@ export const router = createBrowserRouter([
   },
   {
     path: "/manager",
+    id: MANAGER_SESSION,
+    loader: async () => {
+      const session = secureLocalStorage.getItem(STORAGE_KEY);
+
+      if (!session || session.role !== "manager") {
+        throw redirect("/manage/sign-in");
+      }
+
+      return session;
+    },
     element: <Layout />,
     children: [
       {
