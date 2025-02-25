@@ -13,6 +13,7 @@ import StudentPage from "../pages/student/student-overview";
 import SignUpPage from "../pages/SignUp";
 import { MANAGER_SESSION, STORAGE_KEY } from "../utils/const";
 import secureLocalStorage from "react-secure-storage";
+import { getCourses } from "../service/courseService";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,13 @@ export const router = createBrowserRouter([
       },
       {
         path: "/manager/courses",
+        loader: async () => {
+          const data = await getCourses();
+
+          console.log(data);
+
+          return data;
+        },
         element: <ManageCoursePage />,
       },
       {
