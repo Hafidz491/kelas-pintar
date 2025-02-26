@@ -1,8 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useRef, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { createCourse } from "../../../service/courseService";
 import { createCourseSchema } from "../../../utils/zodSchema";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
 
 export default function ManageCreateCoursePage() {
   const categories = useLoaderData();
@@ -19,8 +21,28 @@ export default function ManageCreateCoursePage() {
   const [file, setFile] = useState(null);
   const inputFileRef = useRef(null);
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const navigate = useNavigate();
+
+  const { isLoading, mutateAsync } = useMutation({
+    mutationFn: (data) => createCourse(data),
+  });
+
+  const onSubmit = async (data) => {
+    try {
+      const formData = new FormData();
+
+      formData.append("name", data.name);
+      formData.append("thumbnail", data.thumbnail);
+      formData.append("categoryId", data.categoryId);
+      formData.append("tagline", data.tagline);
+      formData.append("description", data.description);
+
+      await mutateAsync(formData);
+
+      navigate("/manager/courses");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -58,7 +80,6 @@ export default function ManageCreateCoursePage() {
             <input
               {...register("name")}
               type="text"
-              name="title"
               id="title"
               className="appearance-none outline-none w-full py-3 font-semibold placeholder:font-normal placeholder:text-[#838C9D] !bg-transparent"
               placeholder="Write better name htmlFor your course"
@@ -115,7 +136,6 @@ export default function ManageCreateCoursePage() {
                 setValue("thumbnail", e.target.files[0]);
               }
             }}
-            name="thumbnail"
             id="thumbnail"
             accept="image/*"
             className="absolute bottom-0 left-1/4 -z-10"
@@ -137,7 +157,6 @@ export default function ManageCreateCoursePage() {
             <input
               {...register("tagline")}
               type="text"
-              name="tagline"
               id="tagline"
               className="appearance-none outline-none w-full py-3 font-semibold placeholder:font-normal placeholder:text-[#838C9D] !bg-transparent"
               placeholder="Write tagline htmlFor better copy"
@@ -159,7 +178,6 @@ export default function ManageCreateCoursePage() {
             />
             <select
               {...register("categoryId")}
-              name="category"
               id="category"
               className="appearance-none outline-none w-full py-3 px-2 -mx-2 font-semibold placeholder:font-normal placeholder:text-[#838C9D] !bg-transparent"
             >
@@ -194,7 +212,6 @@ export default function ManageCreateCoursePage() {
             />
             <textarea
               {...register("description")}
-              name="desc"
               id="desc"
               rows="5"
               className="appearance-none outline-none w-full font-semibold placeholder:font-normal placeholder:text-[#838C9D] !bg-transparent"
@@ -214,6 +231,7 @@ export default function ManageCreateCoursePage() {
           </button>
           <button
             type="submit"
+            disabled={isLoading}
             className="w-full rounded-full p-[14px_20px] font-semibold text-[#FFFFFF] bg-[#662FFF] text-nowrap"
           >
             Create Now
