@@ -5,3 +5,12 @@ export const getCourses = async () =>
 
 export const getCategories = async () =>
   apiInstanceAuth.get("/categories").then((res) => res.data);
+
+export const createCourse = async (data) =>
+  apiInstanceAuth
+    .post("/courses", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((res) => res.data);
