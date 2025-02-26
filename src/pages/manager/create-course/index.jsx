@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { createCourseSchema } from "../../../utils/zodSchema";
 import { useForm } from "react-hook-form";
@@ -15,6 +15,9 @@ export default function ManageCreateCoursePage() {
   } = useForm({
     resolver: zodResolver(createCourseSchema),
   });
+
+  const [file, setFile] = useState(null);
+  const inputFileRef = useRef(null);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -76,6 +79,7 @@ export default function ManageCreateCoursePage() {
             <button
               type="button"
               id="trigger-input"
+              onClick={() => inputFileRef.current.click()}
               className="absolute top-0 left-0 z-0 flex items-center justify-center w-full h-full gap-3"
             >
               <img
@@ -87,8 +91,10 @@ export default function ManageCreateCoursePage() {
             </button>
             <img
               id="thumbnail-preview"
-              src=""
-              className="hidden object-cover w-full h-full"
+              src={file !== null ? URL.createObjectURL(file) : ""}
+              className={`object-cover w-full h-full ${
+                file !== null ? "block" : "hidden"
+              }`}
               alt="thumbnail"
             />
             <button
@@ -101,7 +107,14 @@ export default function ManageCreateCoursePage() {
           </div>
           <input
             {...register("thumbnail")}
+            ref={inputFileRef}
             type="file"
+            onChange={(e) => {
+              if (e.target.files) {
+                setFile(e.target.files[0]);
+                setValue("thumbnail", e.target.files[0]);
+              }
+            }}
             name="thumbnail"
             id="thumbnail"
             accept="image/*"
