@@ -25,7 +25,7 @@ export default function ManageCreateCoursePage() {
     defaultValues: {
       name: data?.course?.name,
       tagline: data?.course?.tagline,
-      category: data?.course?.category,
+      categoryId: data?.course?.category,
       description: data?.course?.description,
     },
   });
@@ -43,15 +43,15 @@ export default function ManageCreateCoursePage() {
     mutationFn: (data) => updateCourse(data, id),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (values) => {
     try {
       const formData = new FormData();
 
-      formData.append("name", data.name);
-      formData.append("thumbnail", data.thumbnail);
-      formData.append("categoryId", data.categoryId);
-      formData.append("tagline", data.tagline);
-      formData.append("description", data.description);
+      formData.append("name", values.name);
+      formData.append("thumbnail", file);
+      formData.append("categoryId", values.categoryId);
+      formData.append("tagline", values.tagline);
+      formData.append("description", values.description);
 
       if (data.course === null) {
         await mutateCreate.mutateAsync(formData);
