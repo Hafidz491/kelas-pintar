@@ -5,8 +5,6 @@ import { Link, useLoaderData } from "react-router-dom";
 export default function ManageCoursePage() {
   const courses = useLoaderData();
 
-  console.log(courses);
-
   return (
     <>
       <header className="flex items-center justify-between gap-[30px]">
@@ -37,16 +35,22 @@ export default function ManageCoursePage() {
         id="CourseList"
         className="flex flex-col w-full rounded-[30px] p-[30px] gap-[30px] bg-[#F8FAFB]"
       >
-        {courses?.data?.map((item) => (
-          <CardCourse
-            key={item._id}
-            category={item.category.name}
-            id={item._id}
-            imageUrl={item.thumbnail_url}
-            name={item.name}
-            totalStudents={item.total_students}
-          />
-        ))}
+        {courses?.data?.length > 0 ? (
+          courses?.data?.map((item) => (
+            <CardCourse
+              key={item._id}
+              category={item.category.name}
+              id={item._id}
+              imageUrl={item.thumbnail_url}
+              name={item.name}
+              totalStudents={item.total_students}
+            />
+          ))
+        ) : (
+          <div className="text-2xl font-semibold text-center text-gray-400">
+            <p>Course not found!</p>
+          </div>
+        )}
         {/* <div id="Pagination" className="flex items-center gap-3">
               <button
                 type="button"
