@@ -1,6 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useRevalidator } from "react-router-dom";
 import { PropTypes } from "prop-types";
+import { useMutation } from "@tanstack/react-query";
+import { deleteCourse } from "../../../service/courseService";
 
 export default function CardCourse({
   id = 1,
@@ -9,6 +11,20 @@ export default function CardCourse({
   totalStudents = 354,
   category = "Programming",
 }) {
+  const revalidator = useRevalidator();
+
+  const { isLoading, mutateAsync } = useMutation({
+    mutationFn: () => deleteCourse(id),
+  });
+  const handleDelete = async () => {
+    try {
+      await mutateAsync();
+      revalidator.revalidate();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex items-center gap-5 card">
       <div className="flex shrink-0 w-[140px] h-[110px] rounded-[20px] bg-[#D9D9D9] overflow-hidden">
@@ -48,6 +64,14 @@ export default function CardCourse({
         >
           Manage
         </Link>
+        <button
+          type="button"
+          onClick={handleDelete}
+          disabled={isLoading}
+          className="w-fit rounded-full border p-[14px_20px] font-semibold text-nowrap bg-red-500 text-white"
+        >
+          Delete
+        </button>
       </div>
     </div>
   );
