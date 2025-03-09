@@ -84,6 +84,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "/manager/courses/:id",
+        loader: async ({ params }) => {
+          const course = await getCourseDetail(params.id);
+          console.log(course);
+
+          return course?.data;
+        },
         element: <ManageCourseDetailPage />,
       },
       {
