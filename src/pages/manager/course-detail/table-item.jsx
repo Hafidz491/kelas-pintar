@@ -2,11 +2,11 @@ import propTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 export default function ContentItem({
-  id = 1,
+  id = "1",
   index = 1,
   title = "Install VSCode di Windows",
   type = "video",
-  courseId = 2,
+  courseId = "2",
 }) {
   return (
     <div className="flex items-center gap-5 card">
@@ -56,9 +56,9 @@ export default function ContentItem({
 }
 
 ContentItem.propTypes = {
-  id: propTypes.number,
+  id: propTypes.string,
   index: propTypes.number,
   title: propTypes.string,
   type: propTypes.string,
-  courseId: propTypes.number,
+  courseId: propTypes.string,
 };
