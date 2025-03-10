@@ -17,8 +17,27 @@ import {
 } from "ckeditor5";
 
 import "ckeditor5/ckeditor5.css";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { mutateContentSchema } from "../../../utils/zodSchema";
 
 export default function ManageContentCreatePage() {
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm({
+    resolver: zodResolver(mutateContentSchema),
+  });
+
+  const types = watch("type");
+
+  const onSubmit = (values) => {
+    console.log(values);
+  };
+
   return (
     <>
       <div
@@ -55,7 +74,7 @@ export default function ManageContentCreatePage() {
         </div>
       </header>
       <form
-        action="manage-course-materi.html"
+        onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col w-[930px] rounded-[30px] p-[30px] gap-[30px] bg-[#F8FAFB]"
       >
         <div className="flex flex-col gap-[10px]">
@@ -69,15 +88,18 @@ export default function ManageContentCreatePage() {
               alt="icon"
             />
             <input
+              {...register("title")}
               type="text"
-              name="title"
               id="title"
               className="appearance-none outline-none w-full py-3 font-semibold placeholder:font-normal placeholder:text-[#838C9D] !bg-transparent"
               placeholder="Write better name htmlFor your course"
-              required
             />
           </div>
+          <span className="error-message text-[#FF435A]">
+            {errors?.title?.message}
+          </span>
         </div>
+
         <div className="flex flex-col gap-[10px]">
           <label htmlFor="type" className="font-semibold">
             Select Type
@@ -89,16 +111,15 @@ export default function ManageContentCreatePage() {
               alt="icon"
             />
             <select
-              name="type"
+              {...register("type")}
               id="type"
               className="appearance-none outline-none w-full py-3 px-2 -mx-2 font-semibold placeholder:font-normal placeholder:text-[#838C9D] !bg-transparent"
             >
               <option value="" hidden>
                 Choose content type
               </option>
-              <option value="">text</option>
-              <option value="">video</option>
-              <option value="">test</option>
+              <option value="Text">Text</option>
+              <option value="Video">Video</option>
             </select>
             <img
               src="/assets/images/icons/arrow-down.svg"
@@ -106,69 +127,88 @@ export default function ManageContentCreatePage() {
               alt="icon"
             />
           </div>
+          <span className="error-message text-[#FF435A]">
+            {errors?.type?.message}
+          </span>
         </div>
-        <div className="flex flex-col gap-[10px]">
-          <label htmlFor="video" className="font-semibold">
-            Youtube Video ID
-          </label>
-          <div className="flex items-center w-full rounded-full border border-[#CFDBEF] gap-3 px-5 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#662FFF]">
-            <img
-              src="/assets/images/icons/bill-black.svg"
-              className="w-6 h-6"
-              alt="icon"
-            />
-            <input
-              type="text"
-              name="video"
-              id="video"
-              className="appearance-none outline-none w-full py-3 font-semibold placeholder:font-normal placeholder:text-[#838C9D] !bg-transparent"
-              placeholder="Write tagline htmlFor better copy"
-            />
+
+        {types === "Video" && (
+          <div className="flex flex-col gap-[10px]">
+            <label htmlFor="video" className="font-semibold">
+              Video ID
+            </label>
+            <div className="flex items-center w-full rounded-full border border-[#CFDBEF] gap-3 px-5 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#662FFF]">
+              <img
+                src="/assets/images/icons/bill-black.svg"
+                className="w-6 h-6"
+                alt="icon"
+              />
+              <input
+                {...register("videoId")}
+                type="text"
+                id="video"
+                className="appearance-none outline-none w-full py-3 font-semibold placeholder:font-normal placeholder:text-[#838C9D] !bg-transparent"
+                placeholder="Write tagline htmlFor better copy"
+              />
+            </div>
+            <span className="error-message text-[#FF435A]">
+              {errors?.videoId?.message}
+            </span>
           </div>
-        </div>
-        <div className="flex flex-col gap-[10px]">
-          <label className="font-semibold">Content Text</label>
-          {/* <div id="editor"></div> */}
-          <CKEditor
-            id="editor"
-            editor={ClassicEditor}
-            config={{
-              toolbar: [
-                "undo",
-                "redo",
-                "|",
-                "heading",
-                "|",
-                "bold",
-                "italic",
-                "|",
-                "link",
-                "insertTable",
-                "mediaEmbed",
-                "|",
-                "bulletedList",
-                "numberedList",
-                "indent",
-                "outdent",
-              ],
-              plugins: [
-                Bold,
-                Essentials,
-                Heading,
-                Indent,
-                IndentBlock,
-                Italic,
-                Link,
-                List,
-                MediaEmbed,
-                Paragraph,
-                Table,
-                Undo,
-              ],
-              initialData: "<h1>Hello from CKEditor 5!</h1>",
-            }}
-          />
-        </div>
+        )}
+
+        {types === "Text" && (
+          <div className="flex flex-col gap-[10px]">
+            <label className="font-semibold">Content Text</label>
+            {/* <div id="editor"></div> */}
+            <CKEditor
+              editor={ClassicEditor}
+              config={{
+                toolbar: [
+                  "undo",
+                  "redo",
+                  "|",
+                  "heading",
+                  "|",
+                  "bold",
+                  "italic",
+                  "|",
+                  "link",
+                  "insertTable",
+                  "mediaEmbed",
+                  "|",
+                  "bulletedList",
+                  "numberedList",
+                  "indent",
+                  "outdent",
+                ],
+                plugins: [
+                  Bold,
+                  Essentials,
+                  Heading,
+                  Indent,
+                  IndentBlock,
+                  Italic,
+                  Link,
+                  List,
+                  MediaEmbed,
+                  Paragraph,
+                  Table,
+                  Undo,
+                ],
+                initialData: "<h1>Hello from CKEditor 5!</h1>",
+              }}
+              onChange={(e, editor) => {
+                const data = editor.getData();
+
+                setValue("Text", data);
+              }}
+            />
+            <span className="error-message text-[#FF435A]">
+              {errors?.text?.message}
+            </span>
+          </div>
+        )}
         <div className="flex items-center gap-[14px]">
           <button
             type="submit"
