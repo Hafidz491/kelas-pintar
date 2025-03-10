@@ -21,3 +21,11 @@ export const createCourseSchema = z.object({
 export const updateCourseSchema = createCourseSchema.partial({
   thumbnail: true,
 });
+
+export const mutateContentSchema = z.object({
+  title: z.string().min(5),
+  type: z.string().min(4),
+  videoId: z.string().optional(),
+  text: z.string().optional(),
+  courseId: z.string().min(5),
+});
